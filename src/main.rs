@@ -72,6 +72,9 @@ fn startup(
 
     commands.spawn((
         Transform::from_xyz(0.0, 20.0, 75.0).looking_at(Vec3::new(0.0, 1.0, 0.0), Vec3::Y),
-        PanOrbitCamera::default(),
+        PanOrbitCamera{
+            pitch_lower_limit: Some(0.05),
+            ..default()
+        },
     ));
 }
