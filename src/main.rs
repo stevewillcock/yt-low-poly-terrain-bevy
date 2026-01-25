@@ -1,4 +1,3 @@
-use bevy::color::palettes::basic::WHITE;
 use bevy::pbr::wireframe::{Wireframe, WireframePlugin};
 use bevy::prelude::*;
 use bevy::render::RenderPlugin;
@@ -6,6 +5,10 @@ use bevy::render::render_resource::WgpuFeatures;
 use bevy::render::settings::{RenderCreation, WgpuSettings};
 use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin};
 use std::f32::consts::PI;
+use bevy::color::palettes::tailwind::ORANGE_500;
+use bevy::mesh::VertexAttributeValues;
+use noiz::Noise;
+use noiz::prelude::*;
 
 #[derive(Component)]
 struct Terrain;
@@ -64,15 +67,45 @@ fn startup(
         },
     ));
 
+    let terrain_height = 70.0;
+
+    let mut terrain: Mesh = Mesh::from(Plane3d::default().mesh().size(1000.0, 1000.0).subdivisions(200));
+
+    if let Some(VertexAttributeValues::Float32x3(positions,)) = terrain.attribute_mut(Mesh::ATTRIBUTE_POSITION) {
+
+        // let noise = Noise::<BlendCellGradients<
+        //     SimplexGrid,
+        //     SimplecticBlend,
+        //     QuickGradients,
+        // >>::default();
+
+        let noise = Noise::<LayeredNoise<
+            Normed<f32>,
+            Persistence,
+            FractalLayers<Octave<MixCellGradients<
+                OrthoGrid,
+                Smoothstep,
+                QuickGradients
+            >>>,
+        >>::default();
+
+        for pos in positions.iter_mut() {
+            let value: f32 = noise.sample(Vec2::new(pos[0] / 100., pos[2] / 100.));
+            pos[1] += value * terrain_height;
+        }
+    }
+
+    terrain.compute_normals();
+
     commands.spawn((
-        Mesh3d(meshes.add(Plane3d::default().mesh().size(50.0, 50.0).subdivisions(10))),
-        MeshMaterial3d(materials.add(Color::from(WHITE))),
+        Mesh3d(meshes.add(terrain)),
+        MeshMaterial3d(materials.add(Color::from(ORANGE_500))),
         Terrain,
     ));
 
     commands.spawn((
         Transform::from_xyz(0.0, 20.0, 75.0).looking_at(Vec3::new(0.0, 1.0, 0.0), Vec3::Y),
-        PanOrbitCamera{
+        PanOrbitCamera {
             pitch_lower_limit: Some(0.05),
             ..default()
         },
