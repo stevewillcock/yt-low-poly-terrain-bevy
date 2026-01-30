@@ -67,7 +67,7 @@ fn startup(
         },
     ));
 
-    let terrain_height = 70.0;
+    const TERRAIN_HEIGHT: f32 = 50.0;
 
     let mut terrain: Mesh = Mesh::from(Plane3d::default().mesh().size(1000.0, 1000.0).subdivisions(200));
 
@@ -91,7 +91,7 @@ fn startup(
 
         for pos in positions.iter_mut() {
             let value: f32 = noise.sample(Vec2::new(pos[0] / 100., pos[2] / 100.));
-            pos[1] += value * terrain_height;
+            pos[1] += value * TERRAIN_HEIGHT;
         }
     }
 
