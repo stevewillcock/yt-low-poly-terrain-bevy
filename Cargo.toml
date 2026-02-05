@@ -4,11 +4,14 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = { version = "0.18.0", features = ["bevy_dev_tools"] }
-bevy_panorbit_camera = "0.34.0"
+bevy = { version = "0.18.0" }
+#bevy_panorbit_camera = "0.34.0"
 #bevy_malek_async = "0.2.0"
 noiz = "0.4.0"
 #tokio = { version = "1", features = ["full"] }
+bevy_sky_gradient = { git = "https://github.com/stevewillcock/bevy_sky_gradient.git" }
+bevy_flycam = "0.18.0"
+bevy_enhanced_input = "0.23.1"
 
 # Set max log levels. This helps avoid unwanted low-severity log spam, which can affect performance.
 log = { version = "0.4", features = [

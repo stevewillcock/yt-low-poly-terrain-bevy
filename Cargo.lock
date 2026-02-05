@@ -687,6 +687,40 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_enhanced_input"
+version = "0.23.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b1843a33db32fea7721ba86cfab4b4a699ac64acbb02e1b1514b7bf51ca603d7"
+dependencies = [
+ "bevy",
+ "bevy_enhanced_input_macros",
+ "bitflags 2.10.0",
+ "log",
+ "smallvec",
+ "variadics_please",
+]
+
+[[package]]
+name = "bevy_enhanced_input_macros"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "03a283d2eb7bf4ebec559f337ba88ccb246ec17e1237fcfc3ad78a2b9b715614"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "bevy_flycam"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2edc6e0bffe39013fa213848e70c7fa4a1266e8b3f853d2f07aa5fb888cc61d7"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "bevy_gilrs"
 version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1014,15 +1048,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ef8e4b7e61dfe7719bb03c884dc270cd46a82efb40f93e9933b990c5c190c59"
 
 [[package]]
-name = "bevy_panorbit_camera"
-version = "0.34.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec2a3ef5147368953aecb485e6362ea0e23acbd3e4adb02e47058a8c16e9bfe5"
-dependencies = [
- "bevy",
-]
-
-[[package]]
 name = "bevy_pbr"
 version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1281,6 +1306,18 @@ dependencies = [
  "thiserror 2.0.18",
  "tracing",
  "wgpu-types",
+]
+
+[[package]]
+name = "bevy_sky_gradient"
+version = "0.2.0"
+source = "git+https://github.com/stevewillcock/bevy_sky_gradient.git#fb55b93a5a3b4ed8802c9e32baba238842b1e41d"
+dependencies = [
+ "bevy",
+ "bincode",
+ "ron",
+ "serde",
+ "thiserror 2.0.18",
 ]
 
 [[package]]
@@ -1572,6 +1609,26 @@ dependencies = [
  "web-sys",
  "wgpu-types",
  "winit",
+]
+
+[[package]]
+name = "bincode"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "36eaf5d7b090263e8150820482d5d93cd964a81e4019913c972f4edcc6edb740"
+dependencies = [
+ "bincode_derive",
+ "serde",
+ "unty",
+]
+
+[[package]]
+name = "bincode_derive"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bf95709a440f45e986983918d0e8a1f30a9b1df04918fc828670606804ac3c09"
+dependencies = [
+ "virtue",
 ]
 
 [[package]]
@@ -4654,6 +4711,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
 
 [[package]]
+name = "unty"
+version = "0.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d49784317cd0d1ee7ec5c716dd598ec5b4483ea832a2dced265471cc0f690ae"
+
+[[package]]
 name = "uuid"
 version = "1.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4693,6 +4756,12 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "virtue"
+version = "0.0.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "051eb1abcf10076295e815102942cc58f9d5e3b4560e46e53c21e8ff6f3af7b1"
 
 [[package]]
 name = "walkdir"
@@ -5671,7 +5740,9 @@ name = "yt-low-poly-terrain-bevy"
 version = "0.1.0"
 dependencies = [
  "bevy",
- "bevy_panorbit_camera",
+ "bevy_enhanced_input",
+ "bevy_flycam",
+ "bevy_sky_gradient",
  "log",
  "noiz",
  "tracing",
